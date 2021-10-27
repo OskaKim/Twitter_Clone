@@ -1,11 +1,11 @@
 import { authService, dbService } from "fbase";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { useState } from "react/cjs/react.development";
 import Nweet from "components/Nweet";
 
 const Profile = ({ userObj }) => {
   const [nweets, setNweets] = useState([]);
+  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
   const history = useHistory();
 
   const onLogOutClick = () => {
@@ -13,8 +13,22 @@ const Profile = ({ userObj }) => {
     history.push("/");
   };
 
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if(userObj.displayName !== newDisplayName) {
+      await userObj.updateProfile({ displayName: newDisplayName });
+    }
+  };
+
+  const onChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setNewDisplayName(value);
+  };
+
   const getMyNweets = async () => {
-    const newArray = await dbService
+    await dbService
       .collection("nweets")
       .where("creatorId", "==", userObj.uid)
       .orderBy("createdAt", "asc")
@@ -33,6 +47,15 @@ const Profile = ({ userObj }) => {
 
   return (
     <>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          type="text"
+          placeholder="Display name"
+          value={newDisplayName}
+        />
+        <input type="submit" value="Update Profile" />
+      </form>
       <button onClick={onLogOutClick}>Log Out</button>
       <div>
         {nweets.map((nweet) => (

@@ -7,7 +7,7 @@ import Navigation from "./Navigation";
 const AppRouter = ({ isLoggedIn, userObj }) => {
   return (
     <Router>
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && <Navigation userObj={userObj} />}
       <Switch>
         {isLoggedIn ? (
           // NOTE : JSX에서는 하나로 묶어야 정상적으로 작동함 <> ... </>
