@@ -8,6 +8,7 @@ const Navigation = ({ userObj }) => {
           <Link to="/">Home</Link>
         </li>
         <li>
+          <img src={userObj.photoURL} width="25px" height="25px" />
           <Link to="/profile">{userObj.displayName}의 Profile</Link>
         </li>
       </ul>
