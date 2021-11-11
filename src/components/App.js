@@ -8,15 +8,18 @@ function App() {
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      if (user) {
-        refreshUser();
-      }
+      refreshUser();
       setInit(true);
     });
   }, []);
 
   const refreshUser = () => {
     const user = authService.currentUser;
+    if (!Boolean(user)) {
+      setUserObj(null);
+      return;
+    }
+    
     setUserObj({
       uid: user.uid,
       displayName: user.displayName,
