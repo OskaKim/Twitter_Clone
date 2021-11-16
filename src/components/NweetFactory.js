@@ -51,7 +51,9 @@ const NweetFactory = ({ userObj }) => {
       } = finishedEvent;
       setAttachment(result);
     };
-    reader.readAsDataURL(theFile);
+    if (Boolean(theFIle)) {
+      reader.readAsDataURL(theFile);
+    }
   };
   const onClearAttachment = () => setAttachment("");
 
@@ -84,10 +86,10 @@ const NweetFactory = ({ userObj }) => {
       {attachment && (
         <div className="factoryForm__attachment">
           <img
-          src={attachment}
-          style={{
-            backgroundImage: attachment,
-          }}
+            src={attachment}
+            style={{
+              backgroundImage: attachment,
+            }}
           />
           <div className="factoryForm__clear" onClick={onClearAttachment}>
             <span>Remove</span>
