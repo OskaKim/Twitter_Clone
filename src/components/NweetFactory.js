@@ -51,7 +51,7 @@ const NweetFactory = ({ userObj }) => {
       } = finishedEvent;
       setAttachment(result);
     };
-    if (Boolean(theFIle)) {
+    if (Boolean(theFile)) {
       reader.readAsDataURL(theFile);
     }
   };
