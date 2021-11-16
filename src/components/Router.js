@@ -11,14 +11,23 @@ const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
       <Switch>
         {isLoggedIn ? (
           // NOTE : JSX에서는 하나로 묶어야 정상적으로 작동함 <> ... </>
-          <>
+          <div
+            style={{
+              maxWidth: 890,
+              width: "100%",
+              margin: "0 auto",
+              marginTop: 80,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <Route exact path="/">
               <Home userObj={userObj} />
             </Route>
             <Route exact path="/profile">
               <Profile refreshUser={refreshUser} userObj={userObj} />
             </Route>
-          </>
+          </div >
         ) : (
           <Route exact path="/">
             <Auth />
